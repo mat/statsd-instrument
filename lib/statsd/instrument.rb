@@ -89,9 +89,9 @@ module StatsD
   # glork:320|ms
   def self.measure(key, milli = nil)
     result = nil
-    ms = milli || Benchmark.ms do
+    ms = milli || Benchmark.realtime do
       result = yield 
-    end
+    end * 1000
 
     write(key, ms, :ms)
     result
